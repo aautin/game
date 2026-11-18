@@ -8,6 +8,12 @@ GitHub does not check these, so authors and reviewers must. Listed in workflow o
 2. **Branch from the issue:** created through the issue's Development panel, so it is named `<issue-number>-<issue-title>`
 3. **Local tests:** unit tests pass locally before asking for review
 4. **Pull request:** one per issue, titled like the issue since the title becomes the squash commit message, and described with `.github/pull_request_template.md`
+5. **Licensing:** Every `.h` and `.cpp` file must start with the copyright header (see below)
+
+```cpp
+// SPDX-FileCopyrightText: 2026 Autin Alexandre
+// SPDX-License-Identifier: MIT
+```
 
 ## Enforced by GitHub
 
