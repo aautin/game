@@ -1,0 +1,59 @@
+# clang-format configuration matching .claude/skills/cpp/SKILL.md.
+# Visual Studio applies it automatically (Ctrl+K, Ctrl+D).
+Language: Cpp
+Standard: Latest
+
+# NL.15: 100 columns, a tab counts as 4.
+ColumnLimit: 100
+TabWidth: 4
+IndentWidth: 4
+ContinuationIndentWidth: 4
+
+# A wrapped argument or parameter list is indented one level, not aligned on the "(".
+AlignAfterOpenBracket: DontAlign
+
+# NL.13: tabs for indentation, spaces for alignment (stays aligned whatever the tab width).
+UseTab: AlignWithSpaces
+
+# NL.13: Allman braces.
+BreakBeforeBraces: Allman
+
+# Members are indented inside namespaces; access specifiers sit at the class level (C.2).
+NamespaceIndentation: All
+AccessModifierOffset: -4
+FixNamespaceComments: false
+
+# No short constructs squeezed onto one line.
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLambdasOnASingleLine: Empty
+AllowShortLoopsOnASingleLine: false
+
+# T.2: a template declaration goes on its own line.
+BreakTemplateDeclarations: Yes
+
+# `const std::filesystem::path& path`, `CTexture* pTexture`.
+PointerAlignment: Left
+ReferenceAlignment: Pointer
+
+# SF.4: keep the commented include groups, sort only inside each group.
+IncludeBlocks: Preserve
+SortIncludes:
+  Enabled: true
+  IgnoreCase: false
+
+# DOC.3 columns are aligned by hand: never rewrap comments. Long comments are broken by hand
+# (NL.15).
+ReflowComments: Never
+SpacesBeforeTrailingComments: 1
+
+# Empty lines and file endings (matches .gitattributes and .editorconfig).
+MaxEmptyLinesToKeep: 1
+KeepEmptyLines:
+  AtStartOfBlock: false
+  AtStartOfFile: false
+LineEnding: LF
+InsertNewlineAtEOF: true
