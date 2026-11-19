@@ -1,0 +1,39 @@
+# .editorconfig
+root = true
+
+# Matches .gitattributes: new files are created with LF line endings.
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+trim_trailing_whitespace = true
+
+# C++ (NL.13, NL.15): tabs of width 4, lines up to 100 columns. Same values as .clang-format.
+[*.{h,hpp,cpp}]
+indent_style = tab
+indent_size = 4
+tab_width = 4
+max_line_length = 100
+# Visual Studio: style of the generated documentation comments (typed /*! + Enter).
+vc_generate_documentation_comments = doxygen_slash_star_exclamation
+
+# CMake files use the same indentation as the C++ code.
+[{CMakeLists.txt,*.cmake}]
+indent_style = tab
+indent_size = 4
+tab_width = 4
+max_line_length = 100
+
+# YAML forbids tabs: GitHub workflows use 2 spaces.
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+# Python (conanfile.py): 4 spaces, as PEP 8 requires.
+[*.py]
+indent_style = space
+indent_size = 4
+
+# Markdown uses two trailing spaces as a line break: keep them.
+[*.md]
+trim_trailing_whitespace = false

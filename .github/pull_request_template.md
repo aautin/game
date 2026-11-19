@@ -6,6 +6,10 @@ Closes #
 
 <!-- What changed -->
 
+## Miscellaneous
+
+<!-- What changed wasn’t expected to solve the issue -->
+
 ## Checklist
 
 - [ ] PR title matches the issue title

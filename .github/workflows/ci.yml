@@ -1,0 +1,58 @@
+﻿name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# The workflow only reads the repository.
+permissions:
+  contents: read
+
+jobs:
+  build-windows:
+    name: Build and test (Windows, MSVC)
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      # Pinned to Conan 2: a new major version could change the CLI and break the build.
+      - name: Install Conan
+        run: pip install "conan>=2,<3"
+
+      # Detected before the cache step: its hash goes in the cache key, so a new MSVC version
+      # on the runner image creates a new cache entry instead of rebuilding packages every run.
+      - name: Detect Conan profile
+        id: profile
+        run: |
+          conan profile detect --force
+          $hash = (Get-FileHash (conan profile path default)).Hash
+          "hash=$hash" >> $env:GITHUB_OUTPUT
+
+      - name: Cache Conan packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.conan2/p
+          key: conan-${{ runner.os }}-${{ steps.profile.outputs.hash }}-${{ hashFiles('conanfile.py') }}
+          restore-keys: |
+            conan-${{ runner.os }}-${{ steps.profile.outputs.hash }}-
+
+      - name: Install dependencies
+        run: conan install . --build=missing -s build_type=Release -s compiler.cppstd=23
+
+      - name: Configure
+        run: cmake --preset conan-default
+
+      - name: Build
+        run: cmake --build --preset conan-release
+
+      - name: Test
+        run: ctest --preset conan-release --output-on-failure
